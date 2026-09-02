@@ -1,0 +1,15 @@
+# NSCL Website - Search Engine Crawler Directives
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Block private/admin paths (if any added in future)
+Disallow: /admin/
+Disallow: /private/
+
+# Set crawl delay (2 seconds between requests)
+Crawl-delay: 2
+
+# Point to sitemap
+Sitemap: https://nscl-website.vercel.app/sitemap.xml

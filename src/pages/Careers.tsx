@@ -16,6 +16,8 @@ export const Careers: React.FC = () => {
   const [applicantExperience, setApplicantExperience] = useState<string>('');
   const [applicantMessage, setApplicantMessage] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
 
   const departments = ['All', 'Operations', 'Engineering', 'HSE', 'Corporate'];
 
@@ -31,16 +33,40 @@ export const Careers: React.FC = () => {
     }
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Mailto serialization for static hosted site
-    const subject = encodeURIComponent(`Job Application: ${applicantRole || 'General Application'} - ${applicantName}`);
-    const body = encodeURIComponent(
-      `Name: ${applicantName}\nEmail: ${applicantEmail}\nTarget Role: ${applicantRole}\nExperience: ${applicantExperience}\n\nCandidate Statement / Cover Letter:\n${applicantMessage}\n\n[Candidate will attach resume in follow-up email]`
-    );
+    setLoading(true);
+    setError('');
 
-    window.location.href = `mailto:careers@nscl.com.pk?subject=${subject}&body=${body}`;
-    setSubmitted(true);
+    try {
+      const response = await fetch('https://formspree.io/f/xzebrvag', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: applicantName,
+          email: applicantEmail,
+          role: applicantRole,
+          experience: applicantExperience,
+          message: applicantMessage,
+          type: 'Job Application',
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setApplicantName('');
+        setApplicantEmail('');
+        setApplicantRole('');
+        setApplicantExperience('');
+        setApplicantMessage('');
+      } else {
+        setError('Failed to submit application. Please try again.');
+      }
+    } catch (err) {
+      setError('Connection error. Please check your internet and try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

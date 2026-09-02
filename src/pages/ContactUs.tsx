@@ -12,15 +12,40 @@ export const ContactUs: React.FC = () => {
   const [subject, setSubject] = useState('General Enquiry');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const mailSubject = encodeURIComponent(`[${subject}] Inquiry from ${name}`);
-    const mailBody = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`
-    );
-    window.location.href = `mailto:info@nscl.com.pk?subject=${mailSubject}&body=${mailBody}`;
-    setSubmitted(true);
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch('https://formspree.io/f/xzebrvag', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          subject,
+          message,
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setName('');
+        setEmail('');
+        setSubject('General Enquiry');
+        setMessage('');
+      } else {
+        setError('Failed to send message. Please try again.');
+      }
+    } catch (err) {
+      setError('Connection error. Please check your internet and try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -150,9 +175,9 @@ export const ContactUs: React.FC = () => {
                     <div className="value-icon" style={{ margin: '0 auto 1.5rem auto' }}>
                       <CheckCircle2 size={24} />
                     </div>
-                    <h3 style={{ fontSize: '1.4rem', marginBottom: '0.5rem' }}>Message Initialized</h3>
+                    <h3 style={{ fontSize: '1.4rem', marginBottom: '0.5rem' }}>Message Received!</h3>
                     <p>
-                      Your email software has been launched with your inquiry details. Please confirm sending in your email client.
+                      Thank you for contacting NSCL. Your inquiry has been successfully transmitted to info@nscl.com.pk. We will respond within 24 business hours.
                     </p>
                     <button
                       type="button"
@@ -164,9 +189,14 @@ export const ContactUs: React.FC = () => {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit}>
+                    {error && (
+                      <div style={{ padding: '1rem', backgroundColor: '#fee2e2', border: '1px solid #fca5a5', borderRadius: '0.5rem', marginBottom: '1rem', color: '#7f1d1d', fontSize: '0.9rem' }}>
+                        {error}
+                      </div>
+                    )}
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                       <div className="form-group">
-                        <label className="form-label" htmlFor="cnt-name">Your Name *</label>
+                        <label className="form-label" htmlFor="cnt-name">Your Full Name *</label>
                         <input
                           id="cnt-name"
                           type="text"
@@ -221,8 +251,8 @@ export const ContactUs: React.FC = () => {
                       />
                     </div>
 
-                    <button type="submit" className="btn btn-solid btn-lg" style={{ width: '100%' }}>
-                      <span>Transmit Message</span>
+                    <button type="submit" className="btn btn-solid btn-lg" style={{ width: '100%' }} disabled={loading}>
+                      <span>{loading ? 'Sending...' : 'Transmit Message'}</span>
                       <Send size={16} />
                     </button>
                   </form>

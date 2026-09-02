@@ -1,0 +1,6 @@
+{
+  "name": "National Steel Complex Limited (NSCL)",
+  "description": "Pakistan's first private-sector integrated DRI steel manufacturing complex at Bin Qasim, Karachi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

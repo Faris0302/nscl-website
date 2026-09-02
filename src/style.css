@@ -138,7 +138,7 @@ img, video {
 
 .eyebrow::before {
   content: '';
-  display: inline-block;
+  display: none;
   width: 12px;
   height: 2px;
   background-color: var(--ember);
@@ -261,7 +261,7 @@ img, video {
 
 .section-header.centered .eyebrow::after {
   content: '';
-  display: inline-block;
+  display: none;
   width: 12px;
   height: 2px;
   background-color: var(--ember);
@@ -407,6 +407,7 @@ img, video {
   width: 44px;
   height: 44px;
   display: inline-flex;
+  flex: 0 0 44px;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-sm);
@@ -414,6 +415,15 @@ img, video {
   color: var(--ember);
   border: 1px solid rgba(255, 122, 26, 0.2);
   margin-bottom: 0.5rem;
+}
+
+.value-icon > svg {
+  display: block;
+}
+
+.about-page #our-values .spotlight-card > .value-icon {
+  display: flex;
+  margin-bottom: 1rem;
 }
 
 .value-icon-steel {

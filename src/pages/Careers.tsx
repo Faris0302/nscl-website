@@ -65,14 +65,18 @@ export const Careers: React.FC = () => {
       formData.append('experience', applicantExperience);
       formData.append('message', applicantMessage);
       formData.append('type', 'Job Application');
+      formData.append('_replyto', applicantEmail);
+      formData.append('_subject', `Job Application: ${applicantRole}`);
       if (applicantCv) {
         formData.append('cv', applicantCv);
       }
 
-      const response = await fetch('https://formspree.io/f/xzebrvag', {
+      const response = await fetch('https://formspree.io/f/mrpgkolz', {
         method: 'POST',
         body: formData,
       });
+
+      const responseData = await response.json().catch(() => null);
 
       if (response.ok) {
         setSubmitted(true);
@@ -83,7 +87,8 @@ export const Careers: React.FC = () => {
         setApplicantMessage('');
         handleCvClear();
       } else {
-        setError('Failed to submit application. Please try again.');
+        const formspreeError = responseData?.errors?.[0]?.message;
+        setError(formspreeError || `Application could not be submitted (error ${response.status}).`);
       }
     } catch (err) {
       setError('Connection error. Please check your internet and try again.');
@@ -449,7 +454,7 @@ export const Careers: React.FC = () => {
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginTop: '1.5rem' }}>
                   <span style={{ fontSize: '0.8125rem', color: 'var(--muted)', fontFamily: 'var(--font-mono)' }}>
-                    Official Recruitment Desk: careers@nscl.com.pk
+                    Official Recruitment Desk: info@nscl.com.pk
                   </span>
                   <button type="submit" className="btn btn-solid btn-lg" disabled={loading}>
                     <span>{loading ? 'Submitting...' : 'Submit Application'}</span>

@@ -44,6 +44,16 @@ export const Careers: React.FC = () => {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!applicantCv) {
+      setError('Please attach your CV or resume before submitting.');
+      return;
+    }
+
+    if (applicantCv.size > 10 * 1024 * 1024) {
+      setError('Your CV or resume must be 10 MB or smaller.');
+      return;
+    }
+
     setLoading(true);
     setError('');
 
@@ -399,7 +409,7 @@ export const Careers: React.FC = () => {
 
                 <div className="form-group">
                   <label className="form-label" htmlFor="app-cv">Attach CV / Resume *</label>
-                  <div className="file-input-wrap">
+                  <div className="file-input-wrap" aria-describedby="app-cv-help">
                     <Paperclip size={18} aria-hidden="true" />
                     <button
                       type="button"
@@ -414,7 +424,6 @@ export const Careers: React.FC = () => {
                       name="cv"
                       type="file"
                       accept=".pdf,.doc,.docx"
-                      required
                       className="file-input-hidden"
                       onChange={(e) => setApplicantCv(e.target.files?.[0] ?? null)}
                     />
@@ -433,15 +442,17 @@ export const Careers: React.FC = () => {
                       </button>
                     )}
                   </div>
-                  <span className="file-input-help">PDF, DOC, or DOCX up to 10 MB</span>
+                  <span id="app-cv-help" className="file-input-help">PDF, DOC, or DOCX up to 10 MB</span>
                 </div>
+
+                {error && <p className="form-error" role="alert">{error}</p>}
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginTop: '1.5rem' }}>
                   <span style={{ fontSize: '0.8125rem', color: 'var(--muted)', fontFamily: 'var(--font-mono)' }}>
                     Official Recruitment Desk: careers@nscl.com.pk
                   </span>
-                  <button type="submit" className="btn btn-solid btn-lg">
-                    <span>Submit Application</span>
+                  <button type="submit" className="btn btn-solid btn-lg" disabled={loading}>
+                    <span>{loading ? 'Submitting...' : 'Submit Application'}</span>
                     <Send size={16} />
                   </button>
                 </div>

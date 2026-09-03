@@ -2193,6 +2193,17 @@ img, video {
   font-size: 0.75rem;
 }
 
+.form-error {
+  margin: -0.5rem 0 1rem;
+  color: #ff9b8d;
+  font-size: 0.85rem;
+}
+
+.btn:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
 /* Maps & Contact */
 .map-container {
   width: 100%;

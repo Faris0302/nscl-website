@@ -89,7 +89,7 @@ export const Sustainability: React.FC = () => {
       {/* 3-Card Environmental Value Grid */}
       <section className="section section-bg" style={{ paddingTop: '3.5rem', paddingBottom: '3.5rem' }}>
         <div className="container">
-          <div className="three-col">
+          <div className="three-col sustainability-values-grid">
             <Spotlight className="reveal">
               <div className="value-icon">
                 <Wind size={22} />

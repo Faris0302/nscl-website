@@ -223,7 +223,7 @@ export const QEngineering: React.FC = () => {
             </p>
           </div>
 
-          <div className="three-col">
+          <div className="three-col qengineering-values-grid">
             {profileCards.map((item, idx) => (
               <Spotlight key={item.title} className="reveal">
                 <div className={idx % 2 === 0 ? 'value-icon' : 'value-icon value-icon-steel'}>

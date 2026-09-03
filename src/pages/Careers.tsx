@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Briefcase, MapPin, Award, Shield, Sparkles, Send, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Briefcase, MapPin, Award, Shield, Sparkles, Send, CheckCircle2, Paperclip, X } from 'lucide-react';
 import { jobOpenings } from '../data/siteData';
 import { JobOpening } from '../types';
 import { Spotlight } from '../components/Spotlight';
@@ -15,6 +15,8 @@ export const Careers: React.FC = () => {
   const [applicantRole, setApplicantRole] = useState<string>('');
   const [applicantExperience, setApplicantExperience] = useState<string>('');
   const [applicantMessage, setApplicantMessage] = useState<string>('');
+  const [applicantCv, setApplicantCv] = useState<File | null>(null);
+  const applicantCvInputRef = useRef<HTMLInputElement | null>(null);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -33,23 +35,33 @@ export const Careers: React.FC = () => {
     }
   };
 
+  const handleCvClear = () => {
+    setApplicantCv(null);
+    if (applicantCvInputRef.current) {
+      applicantCvInputRef.current.value = '';
+    }
+  };
+
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
     try {
+      const formData = new FormData();
+      formData.append('name', applicantName);
+      formData.append('email', applicantEmail);
+      formData.append('role', applicantRole);
+      formData.append('experience', applicantExperience);
+      formData.append('message', applicantMessage);
+      formData.append('type', 'Job Application');
+      if (applicantCv) {
+        formData.append('cv', applicantCv);
+      }
+
       const response = await fetch('https://formspree.io/f/xzebrvag', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: applicantName,
-          email: applicantEmail,
-          role: applicantRole,
-          experience: applicantExperience,
-          message: applicantMessage,
-          type: 'Job Application',
-        }),
+        body: formData,
       });
 
       if (response.ok) {
@@ -59,6 +71,7 @@ export const Careers: React.FC = () => {
         setApplicantRole('');
         setApplicantExperience('');
         setApplicantMessage('');
+        handleCvClear();
       } else {
         setError('Failed to submit application. Please try again.');
       }
@@ -341,7 +354,7 @@ export const Careers: React.FC = () => {
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '1.25rem' }}>
                   <div className="form-group">
-                    <label className="form-label" htmlFor="app-role">Target Role / Position *</label>
+                    <label className="form-label" htmlFor="app-role">Target Position *</label>
                     <input
                       id="app-role"
                       type="text"
@@ -382,6 +395,45 @@ export const Careers: React.FC = () => {
                     value={applicantMessage}
                     onChange={(e) => setApplicantMessage(e.target.value)}
                   />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label" htmlFor="app-cv">Attach CV / Resume *</label>
+                  <div className="file-input-wrap">
+                    <Paperclip size={18} aria-hidden="true" />
+                    <button
+                      type="button"
+                      className="file-input-button"
+                      onClick={() => applicantCvInputRef.current?.click()}
+                    >
+                      Choose File
+                    </button>
+                    <input
+                      id="app-cv"
+                      ref={applicantCvInputRef}
+                      name="cv"
+                      type="file"
+                      accept=".pdf,.doc,.docx"
+                      required
+                      className="file-input-hidden"
+                      onChange={(e) => setApplicantCv(e.target.files?.[0] ?? null)}
+                    />
+                    <span className="file-input-name">
+                      {applicantCv?.name ?? 'No file chosen'}
+                    </span>
+                    {applicantCv && (
+                      <button
+                        type="button"
+                        className="file-input-clear"
+                        aria-label="Remove attached CV"
+                        title="Remove attached CV"
+                        onClick={handleCvClear}
+                      >
+                        <X size={16} aria-hidden="true" />
+                      </button>
+                    )}
+                  </div>
+                  <span className="file-input-help">PDF, DOC, or DOCX up to 10 MB</span>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginTop: '1.5rem' }}>

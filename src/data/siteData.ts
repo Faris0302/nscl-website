@@ -321,7 +321,7 @@ export const jobOpenings: JobOpening[] = [
   },
   {
     id: 'hse-01',
-    title: 'HSE Manager — High Temperature Metallurgy',
+    title: 'HSE Manager',
     department: 'HSE',
     location: 'Bin Qasim Plant, Karachi',
     type: 'Full-Time',

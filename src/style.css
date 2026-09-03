@@ -426,6 +426,26 @@ img, video {
   margin-bottom: 1rem;
 }
 
+.sustainability-values-grid .spotlight-card > .value-icon {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.dri-values-grid .spotlight-card > .value-icon {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.csr-values-grid .spotlight-card > .value-icon {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.qengineering-values-grid .spotlight-card > .value-icon {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
 .value-icon-steel {
   background-color: rgba(74, 122, 150, 0.1);
   color: var(--steel-light);
@@ -685,14 +705,14 @@ img, video {
 .timeline-marker {
   position: absolute;
   left: 10px;
-  top: 4px;
+  top: 50%;
   width: 22px;
   height: 22px;
   border-radius: 50%;
   background-color: var(--surface);
   border: 2px solid var(--ember);
   box-shadow: 0 0 10px var(--ember-glow);
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
 }
 
 .timeline-phase {
@@ -1245,6 +1265,9 @@ img, video {
 /* Page Hero Header (Inner pages) */
 .hero-page {
   position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
   padding-top: calc(var(--header-height) + 4rem);
   padding-bottom: 5rem;
   background-color: var(--surface);
@@ -2085,6 +2108,89 @@ img, video {
 .form-textarea {
   min-height: 140px;
   resize: vertical;
+}
+
+.file-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 52px;
+  padding: 0.65rem 0.8rem;
+  background-color: var(--surface-2);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--steel-light);
+}
+
+.file-input-wrap:focus-within {
+  border-color: var(--ember);
+  box-shadow: 0 0 0 2px var(--ember-glow);
+}
+
+.file-input-wrap input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.file-input-button {
+  flex: 0 0 auto;
+  margin-right: 0.75rem;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink-secondary);
+  font: inherit;
+  cursor: pointer;
+}
+
+.file-input-button:hover,
+.file-input-button:focus-visible {
+  border-color: var(--ember);
+  color: var(--ink);
+}
+
+.file-input-name {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-input-clear {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-left: auto;
+  padding: 0;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.file-input-clear:hover,
+.file-input-clear:focus-visible {
+  border-color: var(--ember);
+  background: rgba(255, 122, 26, 0.1);
+  color: var(--ember-bright);
+}
+
+.file-input-help {
+  display: block;
+  margin-top: 0.4rem;
+  color: var(--muted-dark);
+  font-size: 0.75rem;
 }
 
 /* Maps & Contact */

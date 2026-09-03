@@ -86,7 +86,7 @@ export const Home: React.FC = () => {
             <div className="hero-stats">
               <AnimatedStat
                 value={220}
-                label="Acres at Port Bin Qasim, Karachi"
+                label="Acres at Port Bin Qasim"
               />
               <AnimatedStat
                 value={1.28}
@@ -97,7 +97,7 @@ export const Home: React.FC = () => {
               <AnimatedStat
                 value={700}
                 suffix="°C"
-                label="Hot DRI Direct Discharge Temperature"
+                label="Hot DRI Discharge Temperature"
               />
             </div>
           </div>

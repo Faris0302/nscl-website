@@ -112,7 +112,7 @@ export const DriTechnology: React.FC = () => {
             </p>
           </div>
 
-          <div className="three-col">
+          <div className="three-col dri-values-grid">
             <Spotlight className="reveal">
               <div className="value-icon">
                 <Atom size={24} />

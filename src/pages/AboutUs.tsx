@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Target, Eye, Crosshair, ShieldCheck, HeartPulse, Leaf, Sparkles, Building2, CheckCircle2 } from 'lucide-react';
 import { Spotlight } from '../components/Spotlight';
+import { MoltenSteelSection } from '../components/MoltenSteelSection';
 import { useRevealOnScroll } from '../hooks/useRevealOnScroll';
 import { valuesList } from '../data/siteData';
 
@@ -97,15 +98,17 @@ export const AboutUs: React.FC = () => {
         </div>
       </section>
 
+      <MoltenSteelSection />
+
       {/* #our: Vision & Mission with At A Glance side-card */}
       <section id="our" className="section section-bg">
         <div className="container">
           <div className="two-col">
-            <div className="reveal">
+            <div className="reveal strategy-copy">
               <div className="eyebrow">Strategic Horizon</div>
               <h2 className="section-title">Our Vision & Mission</h2>
 
-              <div style={{ marginBottom: '2.5rem' }}>
+              <div className="strategy-block reveal reveal-child">
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
                   <Eye className="value-icon" size={20} style={{ margin: 0 }} />
                   <h3 style={{ fontSize: '1.4rem', margin: 0 }}>Corporate Vision</h3>
@@ -115,7 +118,7 @@ export const AboutUs: React.FC = () => {
                 </p>
               </div>
 
-              <div>
+              <div className="strategy-block reveal reveal-child">
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
                   <Target className="value-icon value-icon-steel" size={20} style={{ margin: 0 }} />
                   <h3 style={{ fontSize: '1.4rem', margin: 0 }}>Corporate Mission</h3>
@@ -127,12 +130,12 @@ export const AboutUs: React.FC = () => {
             </div>
 
             {/* At a glance side card */}
-            <Spotlight className="reveal">
+            <Spotlight className="reveal snapshot-card">
               <div className="eyebrow">Enterprise Snapshot</div>
               <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>NSCL At A Glance</h3>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+              <div className="snapshot-list">
+                <div className="snapshot-item reveal reveal-child">
                   <CheckCircle2 size={20} style={{ color: 'var(--ember)', flexShrink: 0, marginTop: '2px' }} />
                   <div>
                     <strong style={{ color: 'var(--ink)', display: 'block', fontSize: '0.95rem' }}>
@@ -144,7 +147,7 @@ export const AboutUs: React.FC = () => {
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+                <div className="snapshot-item reveal reveal-child">
                   <CheckCircle2 size={20} style={{ color: 'var(--ember)', flexShrink: 0, marginTop: '2px' }} />
                   <div>
                     <strong style={{ color: 'var(--ink)', display: 'block', fontSize: '0.95rem' }}>
@@ -156,7 +159,7 @@ export const AboutUs: React.FC = () => {
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+                <div className="snapshot-item reveal reveal-child">
                   <CheckCircle2 size={20} style={{ color: 'var(--ember)', flexShrink: 0, marginTop: '2px' }} />
                   <div>
                     <strong style={{ color: 'var(--ink)', display: 'block', fontSize: '0.95rem' }}>
@@ -168,7 +171,7 @@ export const AboutUs: React.FC = () => {
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+                <div className="snapshot-item reveal reveal-child">
                   <CheckCircle2 size={20} style={{ color: 'var(--ember)', flexShrink: 0, marginTop: '2px' }} />
                   <div>
                     <strong style={{ color: 'var(--ink)', display: 'block', fontSize: '0.95rem' }}>
@@ -188,7 +191,7 @@ export const AboutUs: React.FC = () => {
       {/* #our-values: 6 Value Cards */}
       <section id="our-values" className="section">
         <div className="container">
-          <div className="section-header centered reveal">
+          <div className="section-header centered reveal values-intro">
             <div className="eyebrow">Our Guiding Tenets</div>
             <h2 className="section-title">Core Corporate Values</h2>
             <p className="section-subtitle">
@@ -196,9 +199,9 @@ export const AboutUs: React.FC = () => {
             </p>
           </div>
 
-          <div className="three-col">
+          <div className="three-col values-grid">
             {valuesList.map((val, idx) => (
-              <Spotlight key={val.title} className="reveal">
+              <Spotlight key={val.title} className={`reveal value-card-animated value-card-delay-${idx + 1}`}>
                 <div className="value-icon">
                   {valueIcons[idx]}
                 </div>

@@ -73,12 +73,16 @@ function Hero() {
         <div className="hero-copy max-w-2xl">
           <div className="eyebrow eyebrow-hot hero-fade">Integrated Direct Reduced Iron Complex</div>
           <h1 className="hero-title text-[clamp(2.8rem,6.2vw,6rem)] leading-[0.92]">
-  <span className="text-[#F2F1EC]">Forging</span>{" "}
-  <span className="text-[#F2F1EC]">the</span>{" "}
-  <span className="text-[#f2c40d]">future</span>{" "}
-  <span className="text-[#f4a107]">of</span>{" "}
-  <span className="text-[#f4a107]">steel.</span>
-</h1>
+            <span className="block whitespace-nowrap">
+              <span className="text-[#F2F1EC]">Forging</span>{" "}
+              <span className="text-[#F2F1EC]">the</span>
+            </span>
+            <span className="block whitespace-nowrap">
+              <span className="text-[#f2c40d]">future</span>{" "}
+              <span className="text-[#f4a107]">of</span>{" "}
+              <span className="text-[#f4a107]">steel.</span>
+            </span>
+          </h1>
           <p className="hero-fade mt-6 max-w-xl text-lg leading-relaxed text-sky-light-800/90">Pakistan’s premier private-sector integrated DRI manufacturing complex at Port Bin Qasim, Karachi. Engineered with Japanese MIDREX gas-based reduction technology to produce ultra-pure metallics while cutting carbon emissions.</p>
           <div className="hero-fade mt-8 flex flex-wrap gap-4">
             <Link to="/dri-technology" className="btn btn-hot">Explore DRI Technology <ArrowRight size={16} /></Link>

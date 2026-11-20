@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+/* NSCL palette (100 = darkest, 900 = lightest, bare name = 500) */
+@theme {
+  --color-sky-light: #8ecae6;
+  --color-sky-light-100: #0d2e3d; --color-sky-light-200: #1b5c7a; --color-sky-light-300: #288ab7; --color-sky-light-400: #51aed9;
+  --color-sky-light-500: #8ecae6; --color-sky-light-600: #a5d5eb; --color-sky-light-700: #bbdff0; --color-sky-light-800: #d2eaf5; --color-sky-light-900: #e8f4fa;
+  --color-blue-green: #219ebc;
+  --color-blue-green-100: #071f25; --color-blue-green-200: #0d3e4b; --color-blue-green-300: #145d70; --color-blue-green-400: #1a7d95;
+  --color-blue-green-500: #219ebc; --color-blue-green-600: #39bcdc; --color-blue-green-700: #6bcce5; --color-blue-green-800: #9cddee; --color-blue-green-900: #ceeef6;
+  --color-deep-space: #023047;
+  --color-deep-space-100: #00090e; --color-deep-space-200: #01131c; --color-deep-space-300: #011c2a; --color-deep-space-400: #012638;
+  --color-deep-space-500: #023047; --color-deep-space-600: #04699b; --color-deep-space-700: #06a3f1; --color-deep-space-800: #54c3fb; --color-deep-space-900: #a9e1fd;
+  --color-amber-flame: #ffb703;
+  --color-amber-flame-100: #342500; --color-amber-flame-200: #684b00; --color-amber-flame-300: #9c7000; --color-amber-flame-400: #d09500;
+  --color-amber-flame-500: #ffb703; --color-amber-flame-600: #ffc637; --color-amber-flame-700: #ffd569; --color-amber-flame-800: #ffe39b; --color-amber-flame-900: #fff1cd;
+  --color-princeton: #fb8500;
+  --color-princeton-100: #321b00; --color-princeton-200: #643500; --color-princeton-300: #965000; --color-princeton-400: #c86b00;
+  --color-princeton-500: #fb8500; --color-princeton-600: #ff9e2f; --color-princeton-700: #ffb663; --color-princeton-800: #ffce97; --color-princeton-900: #ffe7cb;
+
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-arabic: "Cairo", "Segoe UI", "Tahoma", sans-serif;
+}
+
+@layer base {
+  html { color-scheme: dark; -webkit-text-size-adjust: 100%; }
+  body { @apply bg-deep-space-200 font-sans text-sky-light-900 antialiased; overflow-x: clip; }
+  h1, h2, h3, h4 { @apply font-display font-bold uppercase tracking-[0.02em] text-balance; line-height: 1.02; }
+  ::selection { @apply bg-amber-flame text-deep-space-100; }
+  :focus-visible { @apply rounded-sm outline-2 outline-offset-2 outline-amber-flame; }
+  img { @apply max-w-full; }
+}
+
+/* Page ground kept outside any layer: a host reset (such as a preview wrapper) is unlayered too,
+   and unlayered rules always beat @layer base, which turned the page white with 14px text. */
+html { color-scheme: dark; }
+body { margin: 0; background-color: var(--color-deep-space-200); color: var(--color-sky-light-900); font-family: var(--font-sans); font-size: 1rem; line-height: 1.5; }
+
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-[1280px] px-[max(20px,env(safe-area-inset-left,0px))]; }
+  .eyebrow { @apply mb-4 inline-flex items-center gap-3 font-mono text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-blue-green-600; }
+  .eyebrow::before { content: ""; @apply h-px w-8 bg-current; }
+  .eyebrow-hot { @apply text-amber-flame; }
+  .h-section { @apply text-[clamp(2.4rem,5vw,4.2rem)]; }
+  .lead { @apply text-lg leading-relaxed text-sky-light-800/85 md:text-xl; }
+  .body { @apply leading-relaxed text-sky-light-800/72; }
+  .panel { @apply rounded-xl border border-sky-light/12 bg-deep-space-300/80 p-7 backdrop-blur-md; }
+  .btn { @apply inline-flex items-center justify-center gap-2.5 rounded-md px-6 py-3.5 font-mono text-[0.85rem] font-semibold uppercase tracking-[0.08em] transition duration-300; }
+  .btn-hot { @apply bg-princeton text-deep-space-100 shadow-[0_10px_30px_-10px] shadow-princeton/70 hover:-translate-y-0.5 hover:bg-amber-flame; }
+  .btn-line { @apply border border-sky-light/30 text-sky-light-900 hover:-translate-y-0.5 hover:border-amber-flame hover:text-amber-flame; }
+  .mono-label { @apply font-mono text-[0.72rem] uppercase tracking-[0.16em] text-sky-light-700/60; }
+}
+
+/* Scroll areas whose bar shows only while scrolling (class toggled from script) */
+.scroll-fade { scrollbar-width: thin; scrollbar-color: transparent transparent; transition: scrollbar-color 0.3s; }
+.scroll-fade.is-scrolling { scrollbar-color: rgb(255 183 3 / 0.5) transparent; }
+.scroll-fade::-webkit-scrollbar { width: 6px; }
+.scroll-fade::-webkit-scrollbar-track { background: transparent; }
+.scroll-fade::-webkit-scrollbar-thumb { background: transparent; border-radius: 99px; }
+.scroll-fade.is-scrolling::-webkit-scrollbar-thumb { background: rgb(255 183 3 / 0.5); }

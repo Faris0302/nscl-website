@@ -37,9 +37,9 @@ const groups = [
 ];
 
 const entities = [
-  { short: 'APCL', name: 'AlHadeed Pelletization Company Limited', url: 'https://apcl.com.pk/', image: img.pelletization, text: 'Beneficiation and pelletization projects that drive vertical integration and feed the DRI plant.' },
-  { short: 'AECL', name: 'AlHadeed Extraction Company Limited', url: 'https://aecl.pk/', image: img.beneficiation, text: 'Mechanized mining of high-grade iron ore in Pakistan, securing the first link of the value chain.' },
-  { short: 'QES', name: 'Q Engineering Services', url: 'https://qes-peach.vercel.app/', image: img.fabrication, text: 'EPC services, a technology centre and a large-scale fabrication facility at Port Qasim.' },
+  { short: 'APCL', logo: img['APCL-LOGO'], logoClass: 'h-14 w-12', name: 'AlHadeed Pelletization Company Limited', url: 'https://apcl.com.pk/', image: img.pelletization, text: 'Beneficiation and pelletization projects that drive vertical integration and feed the DRI plant.' },
+  { short: 'AECL', logo: img['AECL-LOGO'], logoClass: 'h-12 w-44', name: 'AlHadeed Extraction Company Limited', url: 'https://aecl.pk/', image: img.beneficiation, text: 'Mechanized mining of high-grade iron ore in Pakistan, securing the first link of the value chain.' },
+  { short: 'QES', logo: img['QES-LOGO'], logoClass: 'h-16 w-16', name: 'Q Engineering Services', url: 'https://qes-peach.vercel.app/', image: img.fabrication, text: 'EPC services, a technology centre and a large-scale fabrication facility at Port Qasim.' },
 ];
 
 export function OurCollaboration() {
@@ -121,7 +121,9 @@ export function OurCollaboration() {
                 <img src={e.image} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-deep-space-200 via-deep-space-200/70 to-deep-space-200/10" />
                 <div className="relative p-7">
-                  <span className="inline-grid h-12 w-16 place-items-center rounded-lg bg-gradient-to-br from-amber-flame to-princeton font-display text-lg font-bold text-deep-space-100">{e.short}</span>
+                  <div className="grid h-20 place-items-start content-center">
+                    <img src={e.logo} alt={`${e.short} logo`} loading="lazy" className={`${e.logoClass} rounded-md object-contain drop-shadow-md`} />
+                  </div>
                   <h3 className="mt-4 text-3xl">{e.name}</h3>
                   <p className="body mt-2 text-sm">{e.text}</p>
                   <span className="mt-5 inline-flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-wider text-amber-flame">Visit site <ArrowUpRight size={14} className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>

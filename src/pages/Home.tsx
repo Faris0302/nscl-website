@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { createPortal } from 'react-dom';
 import { ArrowRight, Cpu, Flame, Layers, X, ChevronDown } from 'lucide-react';
 import { usePageMotion } from '../components/Motion';
 import heroDesktop from '../assets/video/hero.mp4';
@@ -203,14 +204,20 @@ function Gallery() {
       </div>
 
       {selected && (
-        <div role="dialog" aria-modal="true" aria-label={selected.caption} onClick={e => e.target === e.currentTarget && setSelected(null)}
-          className="fixed inset-0 z-[70] grid place-items-center bg-deep-space-100/92 p-6 backdrop-blur-md">
-          <button type="button" onClick={() => setSelected(null)} aria-label="Close enlarged photo" className="absolute right-6 top-6 grid h-12 w-12 place-items-center rounded-full border border-sky-light/30 hover:border-amber-flame hover:text-amber-flame"><X size={22} /></button>
-          <figure className="max-w-6xl">
-            <img src={selected.image} alt={selected.caption} className="max-h-[78vh] w-auto rounded-xl" />
-            <figcaption className="mono-label mt-4 text-center">{selected.caption}</figcaption>
-          </figure>
-        </div>
+        createPortal(
+          <div role="dialog" aria-modal="true" aria-label={selected.caption} onClick={e => e.target === e.currentTarget && setSelected(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-deep-space-100/92 px-[max(1rem,env(safe-area-inset-left))] pt-[max(5rem,calc(env(safe-area-inset-top)+1rem))] pb-[max(1rem,env(safe-area-inset-bottom))] pr-[max(1rem,env(safe-area-inset-right))] backdrop-blur-md">
+            <button type="button" onClick={() => setSelected(null)} aria-label="Close enlarged photo"
+              className="absolute right-[max(1.5rem,env(safe-area-inset-right))] top-[max(1rem,env(safe-area-inset-top))] z-10 grid h-12 w-12 place-items-center rounded-full border border-sky-light/40 bg-deep-space-300/90 text-sky-light-900 shadow-lg transition-colors hover:border-amber-flame hover:text-amber-flame">
+              <X size={22} />
+            </button>
+            <figure className="flex max-w-full flex-col items-center">
+              <img src={selected.image} alt={selected.caption} className="max-h-[calc(100dvh-11rem)] max-w-[calc(100vw-2rem)] rounded-xl object-contain" />
+              <figcaption className="mono-label mt-4 max-h-[12dvh] max-w-full overflow-y-auto text-center">{selected.caption}</figcaption>
+            </figure>
+          </div>,
+          document.body,
+        )
       )}
     </section>
   );
